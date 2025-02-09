@@ -1,19 +1,36 @@
 import { useState } from "react";
-import { Box, Button, Center, Container, HStack, Icon, Input, Stack } from "@chakra-ui/react";
-import { FcBusinessman, FcBusinesswoman } from "react-icons/fc";
-import { Field } from "./components/ui/field";
+import axios from "axios";
+import { Box, Button, Container, HStack, Icon, Input, Stack } from "@chakra-ui/react";
+import { FcAbout, FcBusinessman, FcBusinesswoman } from "react-icons/fc";
+import { DialogBackdrop, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTrigger } from "./components/ui/dialog";
 import { RadioCardItem, RadioCardRoot } from "./components/ui/radio-card";
+import { Field } from "./components/ui/field";
+import { Blockquote } from "./components/ui/blockquote";
 import { default as BG } from "./assets/bg.png";
 
+type ViewType = "FORM" | "RESULT";
+type GenderType = "L" | "P";
+type BMIResult = {
+  name: string;
+  gender: string;
+  height: number;
+  weight: number;
+  age: number;
+  bmi_score: number;
+  status: string;
+  suggestion: string;
+};
+
 const BMISingle = () => {
-  const [view, set_view] = useState<"FORM" | "RESULT">("FORM");
+  const [result, set_result] = useState<undefined | BMIResult>();
+  const [view, set_view] = useState<ViewType>("FORM");
   const [name, set_name] = useState("");
-  const [gender, set_gender] = useState("L");
+  const [gender, set_gender] = useState<GenderType>("L");
   const [height, set_height] = useState("");
   const [weight, set_weight] = useState("");
   const [age, set_age] = useState("");
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = {
       name,
       gender,
@@ -21,16 +38,16 @@ const BMISingle = () => {
       weight,
       age,
     };
-
-    console.log(data);
-
-    set_view("RESULT");
+    const request = await axios.post(`${window.location.href.split(":")[0]}:${window.location.href.split(":")[1]}:5000/api/bmi`, data);
+    if (request.data.status === "success") {
+      set_result(request.data.data);
+      set_view("RESULT");
+    }
   };
   return (
     <Container fluid alignSelf={"center"} maxW={"md"} h={"100vh"} py={"2"}>
-      {/* form */}
       <Stack
-        hidden={view !== "FORM"}
+        pos={"relative"}
         w={"full"}
         h={"full"}
         justifyContent={"center"}
@@ -42,7 +59,11 @@ const BMISingle = () => {
         bgSize={"cover"}
         bgPos={"left"}
       >
+        {/* about ScaleUp */}
+        <AboutScaleUp />
+        {/* form */}
         <Stack
+          hidden={view !== "FORM"}
           alignItems={"center"}
           w="full"
           h="95%"
@@ -53,12 +74,8 @@ const BMISingle = () => {
           backdropFilter="blur(10px)"
           border="1px solid rgba(255, 255, 255, 0.3)"
         >
-          <Box px="2em" mb="2em" bg="linear-gradient(135deg, #ff9a3c, #ff6f61)" w="fit-content" shadow={"md"} borderRadius="full">
-            <Center color="#3d1a16" fontFamily="Lobster" fontSize="2.5em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
-              ScaleUp
-            </Center>
-          </Box>
-          <RadioCardRoot value={gender} onValueChange={(e) => set_gender(e.value)} colorPalette="orange" orientation="vertical" align="center" w="full" defaultValue="L">
+          <LogoScaleUp />
+          <RadioCardRoot value={gender} onValueChange={(e) => set_gender(e.value as GenderType)} colorPalette="orange" orientation="vertical" align="center" w="full" defaultValue="L">
             <HStack align={"stretch"} w="full">
               <RadioCardItem
                 flex="1"
@@ -119,22 +136,9 @@ const BMISingle = () => {
             Hitung BMI
           </Button>
         </Stack>
-      </Stack>
-      {/* result */}
-      <Stack
-        hidden={view !== "RESULT"}
-        w={"full"}
-        h={"full"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        p={"5"}
-        borderWidth={"2px"}
-        borderRadius={"md"}
-        bgImage={`url(${BG})`}
-        bgSize={"cover"}
-        bgPos={"left"}
-      >
+        {/* result */}
         <Stack
+          hidden={view !== "RESULT"}
           alignItems={"center"}
           w="full"
           h="95%"
@@ -145,37 +149,42 @@ const BMISingle = () => {
           backdropFilter="blur(10px)"
           border="1px solid rgba(255, 255, 255, 0.3)"
         >
-          <Box px="2em" mb="2em" bg="linear-gradient(135deg, #ff9a3c, #ff6f61)" w="fit-content" shadow={"md"} borderRadius="full">
-            <Center color="#3d1a16" fontFamily="Lobster" fontSize="2.5em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
-              ScaleUp
-            </Center>
-          </Box>
-          <Stack spaceY={".5em"} alignItems={"center"} mb="4.35em">
+          <LogoScaleUp />
+          <Stack spaceY={".5em"} alignItems={"center"}>
             <Box px="2em" bg="linear-gradient(135deg, #ff9a3c, #ff6f61)" w="fit-content" shadow={"md"} borderRadius="full">
-              <Center color="#3d1a16" fontFamily="Lobster" fontSize="1.25em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
+              <Box color="#3d1a16" fontFamily="Lobster" fontSize="1.25em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
                 Hasil Perhitungan Anda
-              </Center>
+              </Box>
             </Box>
             <HStack w={"full"} borderRadius={"md"} borderWidth={"2px"}>
-              <Stack gap={0} alignItems={"center"} justifyContent={"center"} w={"37.5%"} borderRadius={"md"} borderRightWidth={"2px"}>
-                <Icon fontSize="5xl">
-                  <FcBusinessman />
-                </Icon>
-                <Box>Laki-laki</Box>
-              </Stack>
+              {result?.gender === "L" ? (
+                <Stack gap={0} alignItems={"center"} justifyContent={"center"} w={"37.5%"} borderRadius={"md"} borderRightWidth={"2px"}>
+                  <Icon fontSize="5xl">
+                    <FcBusinessman />
+                  </Icon>
+                  <Box>Laki-laki</Box>
+                </Stack>
+              ) : (
+                <Stack gap={0} alignItems={"center"} justifyContent={"center"} w={"37.5%"} borderRadius={"md"} borderRightWidth={"2px"}>
+                  <Icon fontSize="5xl">
+                    <FcBusinesswoman />
+                  </Icon>
+                  <Box>Perempuan</Box>
+                </Stack>
+              )}
               <Stack gap={0} h="full" w={"62%"} p={"1"}>
                 <Box lineClamp="2" fontSize="1.1em" fontWeight="700" lineHeight={"1"}>
-                  Udin Gamboet
+                  {result?.name}
                 </Box>
                 <Box fontWeight="500" color={"gray"}>
-                  25 Tahun
+                  {result?.age} Tahun
                 </Box>
               </Stack>
             </HStack>
             <Box p={"1"} bg="blue.500" w={"fit-content"} shadow={"md"} borderRadius="full">
-              <Center mx="1em" color="#fff" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
-                Tinggi: 165cm | Berat: 60 Kg
-              </Center>
+              <Box mx="1em" color="#fff" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
+                {`Tinggi: ${result?.height} cm | Berat: ${result?.weight} Kg`}
+              </Box>
             </Box>
             <Box
               _hover={{
@@ -183,20 +192,20 @@ const BMISingle = () => {
                 transition: "all 0.2s ease-in-out",
               }}
             >
-              <Center color="#3d1a16" fontFamily="Lobster" fontSize="2.5em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
-                21.4
-              </Center>
+              <Box color="#3d1a16" fontFamily="Lobster" fontSize="2.5em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
+                {result?.bmi_score.toFixed(2)}
+              </Box>
             </Box>
-            <Box px="2em" bg="green.400" w="fit-content" shadow={"md"} borderRadius="full">
-              <Center color="#fff" fontFamily="Lobster" fontSize="1.5em" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
-                Berat Badan Ideal
-              </Center>
-            </Box>
-            <Box>
-              <Center fontFamily={"heading"} fontWeight="700" textTransform={"uppercase"}>
-                Pertahankan pola hidup sehat!
-              </Center>
-            </Box>
+            <Stack justifyContent={"center"} alignItems={"center"} px="2em" h={"2.75em"} bg="green.400" w="fit-content" shadow={"md"} borderRadius="full">
+              <Box color="#fff" fontFamily="Lobster" lineHeight={"1"} fontSize="1.25em" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
+                {result?.status}
+              </Box>
+            </Stack>
+            <Stack h={"5em"} justifyContent={"center"} alignItems={"center"}>
+              <Blockquote alignContent={"center"} fontSize={".65em"} showDash cite={"ScaleUp"} citeUrl="#">
+                {result?.suggestion}
+              </Blockquote>
+            </Stack>
           </Stack>
           <Button
             onClick={() => set_view("FORM")}
@@ -225,3 +234,39 @@ const BMISingle = () => {
 };
 
 export default BMISingle;
+
+const LogoScaleUp = () => (
+  <Box px="2em" mb="2em" bg="linear-gradient(135deg, #ff9a3c, #ff6f61)" w="fit-content" shadow={"md"} borderRadius="full">
+    <Box color="#3d1a16" fontFamily="Lobster" fontSize="2.5em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
+      ScaleUp
+    </Box>
+  </Box>
+);
+
+const AboutScaleUp = () => {
+  return (
+    <DialogRoot size={"sm"}>
+      <DialogBackdrop />
+      <DialogTrigger>
+        <Icon pos={"absolute"} top={"2"} insetEnd={"2"} color={"gray.500"} fontSize={"2xl"}>
+          <FcAbout />
+        </Icon>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogCloseTrigger />
+        <DialogHeader></DialogHeader>
+        <DialogBody as={Stack} spaceY={"1em"}>
+          <Box color="#3d1a16" fontFamily="Lobster" fontSize="2.5em" fontWeight="700" textAlign="center" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)">
+            ScaleUp
+          </Box>
+          <Blockquote>
+            ScaleUp adalah aplikasi sederhana namun efektif untuk membantu Anda memantau status kesehatan tubuh. Cukup masukkan tinggi dan berat badan, dan ScaleUp akan langsung memberi tahu apakah
+            berat badan Anda ideal, kurang, atau berlebih. Dengan tampilan yang jelas dan kemudahan penggunaan, Anda bisa lebih sadar akan kondisi tubuh dan mengambil langkah yang tepat untuk hidup
+            lebih sehat.
+          </Blockquote>
+        </DialogBody>
+        <DialogFooter />
+      </DialogContent>
+    </DialogRoot>
+  );
+};
