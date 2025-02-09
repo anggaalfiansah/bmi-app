@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# SCALEUP-FE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ini adalah frontend dari aplikasi **ScaleUp**, yang dikembangkan menggunakan React dengan TypeScript dan Vite sebagai build tool. Proyek ini menggunakan **Chakra UI** untuk styling, **Axios** untuk HTTP requests, dan **React Icons** untuk ikon.
 
-Currently, two official plugins are available:
+## 📌 Fitur
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚡ **Vite** - Build cepat dan efisien
+- 🎨 **Chakra UI** - Styling modern dan responsif
+- 🔗 **Axios** - Fetching API yang mudah digunakan
+- 🌟 **React Icons** - Berbagai ikon siap pakai
 
-## Expanding the ESLint configuration
+## 📂 Struktur Proyek
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+scaleup-fe/
+├── public/          # File statis
+├── src/
+│   ├── assets/      # File statis untuk react
+│   ├── components/  # Komponen reusable
+│   ├── App.tsx      # Entry point aplikasi
+│   ├── main.tsx     # Render utama React
+├── index.html       # Template utama
+├── vite.config.ts   # Konfigurasi Vite
+├── package.json     # Dependency dan script
+├── tsconfig.json    # Konfigurasi TypeScript
+├── README.md        # Dokumentasi proyek
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🚀 Instalasi & Menjalankan Proyek
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Install dependencies**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   ```sh
+   npm install
+   # atau gunakan yarn
+   yarn install
+   # atau gunakan bun
+   bun install
+   ```
+
+2. **Jalankan aplikasi**
+
+   ```sh
+   npm run dev
+   # atau
+   yarn dev
+   # atau
+   bun dev
+   ```
+
+3. **Buka di browser**\
+   Proyek akan berjalan di: `http://localhost:5173`
+
+## 📦 Dependencies Utama
+
+- **React**: `react`, `react-dom`
+- **TypeScript**: `typescript`
+- **Chakra UI**: `@chakra-ui/react`, `@emotion/react`
+- **Axios**: `axios`
+- **React Icons**: `react-icons`
+
