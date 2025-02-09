@@ -1,2 +1,2 @@
-# bmi-app
+# scaleup
 Tujuan: Membantu pengguna menghitung BMI dan memberikan rekomendasi kesehatan berdasarkan hasil perhitungan
