@@ -1,5 +1,5 @@
 {
-    "name": "scaleup-api",
+    "name": "scaleup",
     "version": "1.0.0",
     "dependencies": [
         "crow",
