@@ -18,4 +18,7 @@ export default defineConfig({
     }),
     ViteImageOptimizer(),
   ],
+  build: {
+    assetsDir: "source",
+  },
 });
