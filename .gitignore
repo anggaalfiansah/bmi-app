@@ -54,3 +54,6 @@ data/
 vcpkg_installed
 
 build
+scaleup
+x64
+x86
