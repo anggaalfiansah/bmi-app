@@ -66,12 +66,32 @@ Karena proyek ini sudah dikonfigurasi dalam Visual Studio:
 
 ## Pembuat
 
-**Angga Alfiansah** *(240101010032)*\
-**Tessa Agustin** *(240101010039)*
+**Angga Alfiansah** _(240101010032)_\
+**Tessa Agustin** _(240101010039)_
 
-## Untuk Keperluan  
+## Untuk Keperluan
 
 **Proyek Pengembangan Aplikasi**  
 **SI103 - Struktur Data dan Algoritma**  
 **Universitas Siber Asia**  
-**Dosen Pengampu: Fesa Asy Syifa Nurul Haq, S.Kom, MMSI**  
+**Dosen Pengampu: Fesa Asy Syifa Nurul Haq, S.Kom, MMSI**
+
+## 📸 Tampilan Aplikasi
+
+### 🖥️ Desktop
+
+![Beranda](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/dekstop-home.png)
+![Hasil Perhitungan](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/dekstop-result.png)
+![Tentang Aplikasi](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/dekstop-about.png)
+
+### 🌍 Web
+
+![Beranda](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/web-home.png)
+![Hasil Perhitungan](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/web-result.png)
+![Tentang Aplikasi](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/web-about.png)
+
+### 📱 Mobile
+
+| Beranda                                                                                                | Hasil Perhitungan                                                                                                  | Tentang Aplikasi                                                                                                 |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| ![Beranda](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/mobile-home.jpeg) | ![Hasil Perhitungan](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/mobile-result.jpeg) | ![Tentang Aplikasi](https://raw.githubusercontent.com/anggaalfiansah/bmi-app/main/screenshoot/mobile-about.jpeg) |
