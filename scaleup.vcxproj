@@ -142,7 +142,8 @@
       <AdditionalLibraryDirectories>$(ProjectDir)vcpkg_installed\x64-windows\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /Y /I "$(ProjectDir)src\templates" "$(TargetDir)src\templates"</Command>
+      <Command>xcopy /E /Y /I "$(ProjectDir)src\templates" "$(TargetDir)src\templates"
+xcopy /E /Y /I "$(ProjectDir)vcpkg_installed\x64-windows\bin\WebView2Loader.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
